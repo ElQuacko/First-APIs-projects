@@ -21,3 +21,12 @@ for repoDict in repoDicts:
     print('Number of the episode:', repoDict['episode_id'])
     print('Date of premiere:', repoDict['release_date'])
     print('Director:', repoDict['director'])
+
+myConfig = pygal.Config()
+myConfig.color = '#ff2800'
+myConfig.show_legend = False
+myConfig.width = 1000
+
+chart = pygal.Bar(myConfig)
+chart.title = "Star Wars Movies"
+chart.render_to_file('star_wars_repos.svg')
