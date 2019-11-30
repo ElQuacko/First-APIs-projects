@@ -17,8 +17,8 @@ def currency_variable_assign():
             break
 
 #Finish it later!!!!
-def print_exchange_rate(base_currency):
-    print('USD to %s exchange rate:' % base_currency, "%.2f" % round(1/rates_dictionary['USD'],2))
+def print_exchange_rate(base_currency, exchange_currency):
+    print('%s' % base_currency + ' to %s exchange rate:' % exchange_currency, "%.2f" % round(1/rates_dictionary['%s' % exchange_currency],2))
 
 base_currency = currency_variable_assign()
 print(base_currency)
@@ -52,4 +52,4 @@ print('JPY to %s exchange rate:' % base_currency, "%.2f" % round(1/rates_diction
 print('RUB to %s exchange rate:' % base_currency, "%.2f" % round(1/rates_dictionary['RUB'],2))
 """
 
-#print_exchange_rate(base_currency)
+print_exchange_rate(base_currency, exchange_currency)
