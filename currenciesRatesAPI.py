@@ -8,7 +8,7 @@ def currency_variable_assign():
     'KRW', 'PLN']
 
     while True:
-        user_currency = input('Currency abbreviation:')
+        user_currency = input('Input currency abbreviation:')
         control_variable = False
         for currency in range(len(currency_list)):
             if user_currency == currency_list[currency]:
@@ -19,9 +19,28 @@ def currency_variable_assign():
         else:
             print('Unknown currency abbraviation, enter once again!')
 
-#Function printing exchange rate for entered currencies
+#Function which allow to choose what user want to print
 def print_exchange_rate(base_currency, exchange_currency):
-    print('%s' % base_currency + ' to %s exchange rate:' % exchange_currency, "%.2f" % round(1/rates_dictionary['%s' % exchange_currency],2))
+    while True:
+        #Necesesary line to access API rates and print exchange rates
+        rates_dictionary = response_dictionary['rates']
+
+        user_decision = input('Select 1 to see most popular currency exchange rates.\nSelect 2 to exchange chosen currencies.\nSelect q to quit.\nType your choice: ')
+        if user_decision == 'q':
+            break
+        #This choice prints mos popular currency exchange rates
+        elif user_decision == '1':
+            print('\nUSD to %s exchange rate:' % base_currency, "%.2f" % round(1/rates_dictionary['USD'],2))
+            print('EUR to %s exchange rate:' % base_currency, "%.2f" % round(1/rates_dictionary['EUR'],2))
+            print('GBP to %s exchange rate:' % base_currency, "%.2f" % round(1/rates_dictionary['GBP'],2))
+            print('PLN to %s exchange rate:' % base_currency, "%.2f" % round(1/rates_dictionary['PLN'],2))
+            print('JPY to %s exchange rate:' % base_currency, "%.2f" % round(1/rates_dictionary['JPY'],2))
+            print('RUB to %s exchange rate:' % base_currency, "%.2f" % round(1/rates_dictionary['RUB'],2))
+        #Prints chosen currency exchange rate
+        elif user_decision == '2':
+            print('\n%s' % base_currency + ' to %s exchange rate:' % exchange_currency, "%.2f" % round(1/rates_dictionary['%s' % exchange_currency],2))
+        else:
+            print('\nUnknown command, select once again')
 
 base_currency = currency_variable_assign()
 exchange_currency = currency_variable_assign()
@@ -34,18 +53,5 @@ r = requests.get(API_url)
 #Stores API response as json
 response_dictionary = r.json()
 print('Update date:', response_dictionary['date'])
-
-#Line of the code needed to start functions and print exchange rates
-rates_dictionary = response_dictionary['rates']
-
-"""
-print('\n')
-print('USD to %s exchange rate:' % base_currency, "%.2f" % round(1/rates_dictionary['USD'],2))
-print('EUR to %s exchange rate:' % base_currency, "%.2f" % round(1/rates_dictionary['EUR'],2))
-print('GBP to %s exchange rate:' % base_currency, "%.2f" % round(1/rates_dictionary['GBP'],2))
-print('PLN to %s exchange rate:' % base_currency, "%.2f" % round(1/rates_dictionary['PLN'],2))
-print('JPY to %s exchange rate:' % base_currency, "%.2f" % round(1/rates_dictionary['JPY'],2))
-print('RUB to %s exchange rate:' % base_currency, "%.2f" % round(1/rates_dictionary['RUB'],2))
-"""
 
 print_exchange_rate(base_currency, exchange_currency)
