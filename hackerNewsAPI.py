@@ -1,3 +1,5 @@
+#Project from E. Matthes book "Python Crash Course"
+
 import requests
 
 from operator import itemgetter
